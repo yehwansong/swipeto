@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Swipe with Drag</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; height: 100vh; touch-action: pan-x; overflow: hidden; }
+        .wrapper {
+            width: 100vw;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            width: 500vw; /* Extra width for seamless looping */
+            transition: transform 0.3s ease-out;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+    /*background-blend-mode: color;*/
+    background-size: cover;
+    /*filter: contrast(1.5) brightness(1.5);*/
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+        .slide:nth-child(1), .clone-last { background-color: green; 
+            background-image: url(img/mad2.webp)}
+        .slide:nth-child(2) { background-color: red; 
+            background-image: url(img/mad2.webp); }
+        .slide:nth-child(3) { background-color: blue;
+        background-image: url(img/mad2.webp);  }
+        .slide:nth-child(4) { background-color: green;
+        background-image: url(img/mad2.webp);  }
+        .slide:nth-child(5), .clone-first { background: red; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container" id="slider">
+            <div class="slide clone-last"></div> <!-- Clone of last slide -->
+            <div class="slide"></div> <!-- Red -->
+            <div class="slide"></div> <!-- Blue -->
+            <div class="slide"></div> <!-- Green -->
+            <div class="slide clone-first"></div> <!-- Clone of first slide -->
+        </div>
+    </div>
+    
+    <script>
+let startX = 0, currentX = 0, index = 1, isDragging = false;
+let translateX = -100;
+let lastTranslate = translateX;
+let animationFrame;
+const slider = document.getElementById('slider');
+const totalSlides = 5; // Including clones
+const threshold = 0.2; // in screen width ratio
+
+function setTranslateX(x, withTransition = false) {
+    if (withTransition) {
+        slider.style.transition = "transform 0.35s ease";
+    } else {
+        slider.style.transition = "none";
+    }
+    slider.style.transform = `translateX(${x}vw)`;
+    lastTranslate = x;
+}
+
+function startTouch(e) {
+    isDragging = true;
+    startX = currentX = e.touches[0].clientX;
+    cancelAnimationFrame(animationFrame);
+    slider.style.transition = "none";
+}
+
+function moveTouch(e) {
+    if (!isDragging) return;
+
+    currentX = e.touches[0].clientX;
+    const deltaX = currentX - startX;
+    const deltaRatio = (deltaX / window.innerWidth) * 100;
+    let nextTranslate = translateX + deltaRatio;
+
+    // rubber-band easing near edges
+    if ((index === 1 && deltaX > 0) || (index === totalSlides - 2 && deltaX < 0)) {
+        nextTranslate = translateX + deltaRatio * 0.3;
+    }
+
+    setTranslateX(nextTranslate);
+}
+
+function endTouch() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const deltaX = currentX - startX;
+    const deltaRatio = deltaX / window.innerWidth;
+
+    if (Math.abs(deltaRatio) > threshold) {
+        if (deltaRatio > 0) index--;
+        else index++;
+    }
+
+    snapToIndex();
+}
+
+function snapToIndex() {
+    translateX = -index * 100;
+    setTranslateX(translateX, true);
+
+    // handle looping clones
+    setTimeout(() => {
+        if (index >= totalSlides - 1) {
+            index = 1;
+            translateX = -100;
+            setTranslateX(translateX, false);
+        } else if (index <= 0) {
+            index = totalSlides - 2;
+            translateX = -index * 100;
+            setTranslateX(translateX, false);
+        }
+    }, 400);
+}
+
+// Event listeners
+slider.addEventListener('touchstart', startTouch);
+slider.addEventListener('touchmove', moveTouch);
+slider.addEventListener('touchend', endTouch);
+
+// Initialize to first real slide
+setTranslateX(-100, false);
+
+// Optional auto-refresh
+setInterval(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('t', Date.now());
+    window.location.href = url.toString();
+}, 5000);
+
+
+
+    </script>
+</body>
+</html>
