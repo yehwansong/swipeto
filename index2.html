@@ -1,145 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite Swipe with Drag</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { display: flex; height: 100vh; touch-action: pan-x; overflow: hidden; }
-        .wrapper {
-            width: 100vw;
-            overflow: hidden;
-        }
-        .container {
-            display: flex;
-            width: 500vw; /* Extra width for seamless looping */
-            transition: transform 0.3s ease-out;
-        }
-        .slide {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
-    /*background-blend-mode: color;*/
-    background-size: cover;
-    /*filter: contrast(1.5) brightness(1.5);*/
-            background-repeat: no-repeat;
-            background-position: top;
-        }
-        .slide:nth-child(1), .clone-last { background-color: green; 
-            background-image: url(img/mad2.webp)}
-        .slide:nth-child(2) { background-color: red; 
-            background-image: url(img/mad2.webp); }
-        .slide:nth-child(3) { background-color: blue;
-        background-image: url(img/mad2.webp);  }
-        .slide:nth-child(4) { background-color: green;
-        background-image: url(img/mad2.webp);  }
-        .slide:nth-child(5), .clone-first { background: red; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swipe Ball</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Praise&display=swap" rel="stylesheet">  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <style>
+    @font-face {
+      font-family: 'CircularPro';
+      src: url('CircularPro-BoldItalic.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+* {
+  font-family: "Praise", cursive;
+  /*text-transform: uppercase;*/
+  font-weight: 400;
+  font-style: normal;
+}
+
+    * {
+      /*font-family: 'CircularPro';*/
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      transform: rotate(180deg);
+      overflow: hidden;
+      background: #f0f0f0;
+      height: 100vh;
+      touch-action: none;
+      position: relative;
+    }
+
+    .ball {
+      position: absolute;
+      max-width: 72.5vw;
+      background-image: url(bubble.png);
+      background-size: 100% 100%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 10;
+    }
+    .ball img{
+    position: absolute;
+    width: 8vw;
+      display: none;
+    }
+    .from-145-to-127{
+      min-width: 300px;
+    }
+    .from-145-to-127 .line1{padding: 5px 30px;}
+    .from-127-to-105 .line1,.from-127-to-105 .line2{
+      padding: 5px 30px 5px 30px;
+    }
+
+    .from-127-to-105 .line1{
+      padding: 5px 50px 0px 50px;
+    }
+    .from-127-to-105 .line2{
+      padding: 0px 50px 5px 50px;
+    }
+    .from-127-to-105 img{
+    display: block;
+    transform: rotate(180deg) translateY(50%);
+    left: calc(50% - 4vw);
+    top: 0%;
+    }
+
+    .ball > div {
+      transform: rotate(180deg);
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 11vw;
+      padding: 15px 10px 15px 10px;
+      transition: 1s padding;
+      position: relative;z-index: 100
+    }
+
+    .line1, .line2 {
+      display: block;
+      white-space: nowrap;
+      line-height: 0.8
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('Pre-comp 3_451.png');
+      background-size: 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: -1;
+      transform: scaleY(-1);
+      filter: saturate(1.5) ;
+    }
+    .line-link {
+      position: absolute;
+      width: 20px;
+      background: #ffdd92;
+      transform-origin: top left;
+      z-index: 0;
+    }
+    .ballwrap{    mix-blend-mode: difference;
+    filter: drop-shadow(0px 0px 5vw rgb(143, 82, 142))}
+#background_00{background-image: url(seq/00.png)}
+#background_01{background-image: url(seq/01.png)}
+#background_02{background-image: url(seq/02.png)}
+#background_03{background-image: url(seq/03.png)}
+#background_04{background-image: url(seq/04.png)}
+#background_05{background-image: url(seq/05.png)}
+#background_06{background-image: url(seq/06.png)}
+#background_07{background-image: url(seq/07.png)}
+#background_08{background-image: url(seq/08.png)}
+#background_09{background-image: url(seq/09.png)}
+#background_10{background-image: url(seq/10.png)}
+#background_11{background-image: url(seq/11.png)}
+#background_12{background-image: url(seq/12.png)}
+#background_13{background-image: url(seq/13.png)}
+#background_14{background-image: url(seq/14.png)}
+#background_15{background-image: url(seq/15.png)}
+#background_16{background-image: url(seq/16.png)}
+#background_17{background-image: url(seq/17.png)}
+#background_18{background-image: url(seq/18.png)}
+#background_19{background-image: url(seq/19.png)}
+#background_20{background-image: url(seq/20.png)}
+  </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container" id="slider">
-            <div class="slide clone-last"></div> <!-- Clone of last slide -->
-            <div class="slide"></div> <!-- Red -->
-            <div class="slide"></div> <!-- Blue -->
-            <div class="slide"></div> <!-- Green -->
-            <div class="slide clone-first"></div> <!-- Clone of first slide -->
-        </div>
-    </div>
-    
-    <script>
-let startX = 0, currentX = 0, index = 1, isDragging = false;
-let translateX = -100;
-let lastTranslate = translateX;
-let animationFrame;
-const slider = document.getElementById('slider');
-const totalSlides = 5; // Including clones
-const threshold = 0.2; // in screen width ratio
 
-function setTranslateX(x, withTransition = false) {
-    if (withTransition) {
-        slider.style.transition = "transform 0.35s ease";
-    } else {
-        slider.style.transition = "none";
+<div id="background_01" class="background"></div>
+<div id="background_02" class="background"></div>
+<div id="background_03" class="background"></div>
+<div id="background_04" class="background"></div>
+<div id="background_05" class="background"></div>
+<div id="background_06" class="background"></div>
+<div id="background_07" class="background"></div>
+<div id="background_08" class="background"></div>
+<div id="background_09" class="background"></div>
+<div id="background_10" class="background"></div>
+<div id="background_11" class="background"></div>
+<div id="background_12" class="background"></div>
+<div id="background_13" class="background"></div>
+<div id="background_14" class="background"></div>
+<div id="background_15" class="background"></div>
+<div id="background_16" class="background"></div>
+<div id="background_17" class="background"></div>
+<div id="background_18" class="background"></div>
+<div id="background_19" class="background"></div>
+<div id="background_20" class="background"></div>
+
+<div class="ballwrap">
+<!-- 5 balls -->
+<div class="ball" id="ball0"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball1"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball2"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball3"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball4"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="line-link" id="line0"></div>
+<div class="line-link" id="line1"></div>
+<div class="line-link" id="line2"></div>
+</div>
+
+<script>
+  const positions = [
+    { top: 167,  left: 56 },
+    { top: 150,  left: 56 },
+    { top: 145,  left: 83 },
+    { top: 127,  left: 63 },
+    { top: 105,  left: 63 },
+    { top: -48,  left: 183 },
+  ];
+  const phrases = ["Swipe to Forget Again",
+"Swipe to Mute Myself",
+"Swipe to Wish Quietly",
+"Swipe to Remember Wrong",
+"Swipe to What If Not",
+"Swipe to Start Over Softly",
+"Swipe to Empty Everything",
+  ];
+var gap = 7
+function updateLineFromPositions(from, to, line) {
+  const x1 = from.left;
+  const y1 = from.top;
+  const x2 = to.left;
+  const y2 = to.top;
+
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const length = Math.sqrt(dx * dx + dy * dy);
+  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+  line.style.left = x1 + 'vw';
+  line.style.top = y1 + 'vw';
+  line.style.height = length + 'vw';
+  line.style.transform = `rotate(${angle-90}deg)`;
+}
+
+  const shortText = "Swi...";
+  const transitionText = "Swipe to...";
+  const totalSteps = positions.length;
+  const ballCount = 5;
+  const balls = [];
+  const steps = [];
+  const activePhrases = [];
+const lines = [
+  document.getElementById('line0'),
+  document.getElementById('line1'),
+  document.getElementById('line2')
+];
+
+  let animating = false;
+
+  function easeOutQuad(t) {
+    return t * (2 - t);
+  }
+
+  function animateTo(ball, from, to, stepIndex, callback, ballIndex) {
+    let frame = 0;
+    const line1 = ball.querySelector('.line1');
+    const line2 = ball.querySelector('.line2');
+
+    const isSwiToSwipeStep = from.top === 145 && to.top === 127;
+    const isPhraseRevealStep = from.top === 127 && to.top === 105;
+
+    if (isPhraseRevealStep) {
+      activePhrases[ballIndex] = phrases[Math.floor(Math.random() * phrases.length)];
     }
-    slider.style.transform = `translateX(${x}vw)`;
-    lastTranslate = x;
+
+function zeroPad(number, width) {
+    return String(number).padStart(width, "0");
+}
+function updateText(progress) {
+  if (isSwiToSwipeStep) {
+    if(progress>0){
+        const count = Math.floor(progress * transitionText.length);
+        line1.textContent = transitionText.slice(0, count);
+        line2.textContent = "";}
+  } else if (isPhraseRevealStep) {
+    const full = activePhrases[ballIndex];
+    const rest = full.slice("Swipe to".length).trim();  // ✅ FINAL FIX: remove "swipe to" only (no dots!)
+    const count = Math.floor(progress * rest.length);
+    line1.textContent = "Swipe to";
+    line2.textContent = rest.slice(0, count);
+  }
+}
+function stepAnim() {
+  // Assign transition class like 'from-167-to-150'
+  if(frame > gap){
+  const fromClass = `from-${from.top}-to-${to.top}`;
+  
+  // Remove all old from-* classes first
+  ball.classList.forEach(cls => {
+    if (cls.startsWith('from-')) ball.classList.remove(cls);
+  });
+ball.classList.add(fromClass);
+
+
 }
 
-function startTouch(e) {
-    isDragging = true;
-    startX = currentX = e.touches[0].clientX;
-    cancelAnimationFrame(animationFrame);
-    slider.style.transition = "none";
+// Add the current from-to class
+  frame++;
+  const t = frame < gap ? 0 : easeOutQuad((frame - gap) / 20);
+
+  const currentTop = from.top + (to.top - from.top) * t;
+  const currentLeft = from.left + (to.left - from.left) * t;
+
+  ball.style.top = currentTop + 'vw';
+  ball.style.left = currentLeft + 'vw';
+
+
+  $('.background').hide()
+  $('#background_'+zeroPad(Math.min(frame,20),2)).show()
+
+if (ballIndex < 3) {
+  let innerIndex = ballIndex;
+
+  const fromPos = {
+    top: positions[ballIndex].top + (positions[ballIndex + 1].top - positions[ballIndex].top) * t,
+    left: positions[ballIndex].left + (positions[ballIndex + 1].left - positions[ballIndex].left) * t
+  };
+
+  const nextPos = {
+    top: positions[ballIndex + 1].top + (positions[ballIndex + 2].top - positions[ballIndex + 1].top) * t,
+    left: positions[ballIndex + 1].left + (positions[ballIndex + 2].left - positions[ballIndex + 1].left) * t
+  };
+
+  updateLineFromPositions(fromPos, nextPos, lines[innerIndex]);
 }
 
-function moveTouch(e) {
-    if (!isDragging) return;
 
-    currentX = e.touches[0].clientX;
-    const deltaX = currentX - startX;
-    const deltaRatio = (deltaX / window.innerWidth) * 100;
-    let nextTranslate = translateX + deltaRatio;
-
-    // rubber-band easing near edges
-    if ((index === 1 && deltaX > 0) || (index === totalSlides - 2 && deltaX < 0)) {
-        nextTranslate = translateX + deltaRatio * 0.3;
-    }
-
-    setTranslateX(nextTranslate);
+  if (frame > gap) {
+  updateText((frame-gap*2) / 20);
 }
 
-function endTouch() {
-    if (!isDragging) return;
-    isDragging = false;
+  if (frame < 20+gap*2) {
 
-    const deltaX = currentX - startX;
-    const deltaRatio = deltaX / window.innerWidth;
-
-    if (Math.abs(deltaRatio) > threshold) {
-        if (deltaRatio > 0) index--;
-        else index++;
-    }
-
-    snapToIndex();
+    setTimeout(stepAnim, 1000 / 30);
+  } else {
+    if (callback) callback();
+  }
 }
 
-function snapToIndex() {
-    translateX = -index * 100;
-    setTranslateX(translateX, true);
 
-    // handle looping clones
-    setTimeout(() => {
-        if (index >= totalSlides - 1) {
-            index = 1;
-            translateX = -100;
-            setTranslateX(translateX, false);
-        } else if (index <= 0) {
-            index = totalSlides - 2;
-            translateX = -index * 100;
-            setTranslateX(translateX, false);
+    stepAnim();
+  }
+
+  // Initialize
+  for (let i = 0; i < ballCount; i++) {
+    const ball = document.getElementById('ball' + i);
+    balls.push(ball);
+    steps.push(i);
+    activePhrases.push(null);
+
+    const pos = positions[i];
+    ball.style.top = pos.top + 'vw';
+    ball.style.left = pos.left + 'vw';
+
+    const line1 = ball.querySelector('.line1');
+    const line2 = ball.querySelector('.line2');
+    line1.textContent = shortText;
+    line2.textContent = '';
+  }
+
+  document.body.addEventListener('touchend', () => {
+    if (animating) return;
+    animating = true;
+
+    let completed = 0;
+
+    for (let i = 0; i < ballCount; i++) {
+      const current = steps[i];
+      const next = (current + 1) % totalSteps;
+      const from = positions[current];
+      const to = positions[next];
+      const ball = balls[i];
+
+      animateTo(ball, from, to, current, () => {
+        steps[i] = next;
+
+        if (next === totalSteps - 1) {
+          setTimeout(() => {
+            const resetPos = positions[0];
+            ball.style.top = resetPos.top + 'vw';
+            ball.style.left = resetPos.left + 'vw';
+            steps[i] = 0;
+
+            const line1 = ball.querySelector('.line1');
+            const line2 = ball.querySelector('.line2');
+            line1.textContent = shortText;
+            line2.textContent = '';
+            activePhrases[i] = null;
+          }, 50);
         }
-    }, 400);
-}
 
-// Event listeners
-slider.addEventListener('touchstart', startTouch);
-slider.addEventListener('touchmove', moveTouch);
-slider.addEventListener('touchend', endTouch);
+        completed++;
+        if (completed === ballCount) animating = false;
+      }, i);
+    }
+  });
+//   function drawStaticLine(from, to, element) {
+//   const dx = to.left - from.left;
+//   const dy = to.top - from.top;
+//   const length = Math.sqrt(dx * dx + dy * dy);
+//   const angle = Math.atan2(dy, dx) * 180 / Math.PI;
 
-// Initialize to first real slide
-setTranslateX(-100, false);
+//   element.style.left = from.left + 'vw';
+//   element.style.top = from.top + 'vw';
+//   element.style.height = length + 'vw';
+//   element.style.transform = `rotate(${angle - 90}deg)`; // -90 to go from vertical
+// }
 
-// Optional auto-refresh
-setInterval(() => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('t', Date.now());
-    window.location.href = url.toString();
-}, 5000);
+// const staticPositions = [
+//   { top: 150, left: 56 }, // A
+//   { top: 145, left: 83 }, // B
+//   { top: 125, left: 63 }, // C
+//   { top: 105, left: 63 }, // D
+// ];
 
+// drawStaticLine(staticPositions[0], staticPositions[1], document.getElementById('line0'));
+// drawStaticLine(staticPositions[1], staticPositions[2], document.getElementById('line1'));
+// drawStaticLine(staticPositions[2], staticPositions[3], document.getElementById('line2'));
 
+</script>
 
-    </script>
 </body>
 </html>
