@@ -187,6 +187,7 @@
 "Swipe to Empty Everything",
   ];
 var gap = 7
+
 function updateLineFromPositions(from, to, line) {
   const x1 = from.left;
   const y1 = from.top;
@@ -330,7 +331,8 @@ if (ballIndex < 3) {
     line2.textContent = '';
   }
 
-  document.body.addEventListener('touchend', () => {
+  function loop() {
+
     if (animating) return;
     animating = true;
 
@@ -362,10 +364,16 @@ if (ballIndex < 3) {
         }
 
         completed++;
-        if (completed === ballCount) animating = false;
+        if (completed === ballCount) {
+  animating = false;
+  setTimeout(loop, 500); // Add a small delay before looping again
+}
+
       }, i);
     }
-  });
+  };
+  loop();
+
 //   function drawStaticLine(from, to, element) {
 //   const dx = to.left - from.left;
 //   const dy = to.top - from.top;
