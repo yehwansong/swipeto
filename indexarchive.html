@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swipe Ball</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Praise&display=swap" rel="stylesheet">  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <style>
+    @font-face {
+      font-family: 'CircularPro';
+      src: url('CircularPro-BoldItalic.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+* {
+  font-family: "Praise", cursive;
+  /*text-transform: uppercase;*/
+  font-weight: 400;
+  font-style: normal;
+}
+
+    * {
+      /*font-family: 'CircularPro';*/
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      /*transform: rotate(180deg);*/
+      overflow: hidden;
+      background: #f0f0f0;
+      height: 100vh;
+      touch-action: none;
+      position: relative;
+    }
+
+    .ball {
+      position: absolute;
+      max-width: 72.5vw;
+      background-image: url(bubble.png);
+      background-size: 100% 100%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 10;
+    }
+    .ball img{
+    position: absolute;
+    width: 8vw;
+      display: none;
+    }
+    .from-145-to-127{
+      min-width: 300px;
+    }
+    .from-145-to-127 .line1{padding: 5px 30px;}
+    .from-127-to-105 .line1,.from-127-to-105 .line2{
+      padding: 5px 30px 5px 30px;
+    }
+
+    .from-127-to-105 .line1{
+      padding: 5px 50px 0px 50px;
+    }
+    .from-127-to-105 .line2{
+      padding: 0px 50px 5px 50px;
+    }
+    .from-127-to-105 img{
+    display: block;
+    transform: rotate(180deg) translateY(50%);
+    left: calc(50% - 4vw);
+    top: 0%;
+    }
+
+    .ball > div {
+      transform: rotate(180deg);
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 11vw;
+      padding: 15px 10px 15px 10px;
+      transition: 1s padding;
+      position: relative;z-index: 100
+    }
+
+    .line1, .line2 {
+      display: block;
+      white-space: nowrap;
+      line-height: 0.8
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('Pre-comp 3_451.png');
+      background-size: 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: -1;
+      transform: scaleY(-1);
+      filter: saturate(1.5) ;
+    }
+    .line-link {
+      position: absolute;
+      width: 20px;
+      background: #ffdd92;
+      transform-origin: top left;
+      z-index: 0;
+    }
+    .ballwrap{    
+      /*mix-blend-mode: difference;*/
+    filter: drop-shadow(0px 0px 5vw rgb(143, 82, 142))}
+#background_000{background-image:url(whole000.png)}
+#background_001{background-image:url(whole001.png)}
+#background_002{background-image:url(whole002.png)}
+#background_003{background-image:url(whole003.png)}
+#background_004{background-image:url(whole004.png)}
+#background_005{background-image:url(whole005.png)}
+#background_006{background-image:url(whole006.png)}
+#background_007{background-image:url(whole007.png)}
+#background_008{background-image:url(whole008.png)}
+#background_009{background-image:url(whole009.png)}
+#background_010{background-image:url(whole010.png)}
+#background_011{background-image:url(whole011.png)}
+#background_012{background-image:url(whole012.png)}
+#background_013{background-image:url(whole013.png)}
+#background_014{background-image:url(whole014.png)}
+#background_015{background-image:url(whole015.png)}
+#background_016{background-image:url(whole016.png)}
+#background_017{background-image:url(whole017.png)}
+#background_018{background-image:url(whole018.png)}
+#background_019{background-image:url(whole019.png)}
+#background_020{background-image:url(whole020.png)}
+#background_021{background-image:url(whole021.png)}
+#background_022{background-image:url(whole022.png)}
+#background_023{background-image:url(whole023.png)}
+#background_024{background-image:url(whole024.png)}
+#background_025{background-image:url(whole025.png)}
+#background_026{background-image:url(whole026.png)}
+#background_027{background-image:url(whole027.png)}
+#background_028{background-image:url(whole028.png)}
+#background_029{background-image:url(whole029.png)}
+#background_030{background-image:url(whole030.png)}
+#background_031{background-image:url(whole031.png)}
+#background_032{background-image:url(whole032.png)}
+#background_033{background-image:url(whole033.png)}
+#background_034{background-image:url(whole034.png)}
+#background_035{background-image:url(whole035.png)}
+#background_036{background-image:url(whole036.png)}
+#background_037{background-image:url(whole037.png)}
+#background_038{background-image:url(whole038.png)}
+#background_039{background-image:url(whole039.png)}
+#background_040{background-image:url(whole040.png)}
+#background_041{background-image:url(whole041.png)}
+#background_042{background-image:url(whole042.png)}
+#background_043{background-image:url(whole043.png)}
+#background_044{background-image:url(whole044.png)}
+#background_045{background-image:url(whole045.png)}
+#background_046{background-image:url(whole046.png)}
+#background_047{background-image:url(whole047.png)}
+#background_048{background-image:url(whole048.png)}
+#background_049{background-image:url(whole049.png)}
+#background_050{background-image:url(whole050.png)}
+#background_051{background-image:url(whole051.png)}
+#background_052{background-image:url(whole052.png)}
+#background_053{background-image:url(whole053.png)}
+#background_054{background-image:url(whole054.png)}
+#background_055{background-image:url(whole055.png)}
+#background_056{background-image:url(whole056.png)}
+#background_057{background-image:url(whole057.png)}
+#background_058{background-image:url(whole058.png)}
+#background_059{background-image:url(whole059.png)}
+#background_060{background-image:url(whole060.png)}
+#background_061{background-image:url(whole061.png)}
+#background_062{background-image:url(whole062.png)}
+#background_063{background-image:url(whole063.png)}
+#background_064{background-image:url(whole064.png)}
+#background_065{background-image:url(whole065.png)}
+#background_066{background-image:url(whole066.png)}
+#background_067{background-image:url(whole067.png)}
+#background_068{background-image:url(whole068.png)}
+#background_069{background-image:url(whole069.png)}
+#background_070{background-image:url(whole070.png)}
+#background_071{background-image:url(whole071.png)}
+#background_072{background-image:url(whole072.png)}
+#background_073{background-image:url(whole073.png)}
+#background_074{background-image:url(whole074.png)}
+#background_075{background-image:url(whole075.png)}
+#background_076{background-image:url(whole076.png)}
+#background_077{background-image:url(whole077.png)}
+#background_078{background-image:url(whole078.png)}
+#background_079{background-image:url(whole079.png)}
+#background_080{background-image:url(whole080.png)}
+#background_081{background-image:url(whole081.png)}
+#background_082{background-image:url(whole082.png)}
+#background_083{background-image:url(whole083.png)}
+#background_084{background-image:url(whole084.png)}
+#background_085{background-image:url(whole085.png)}
+#background_086{background-image:url(whole086.png)}
+#background_087{background-image:url(whole087.png)}
+#background_088{background-image:url(whole088.png)}
+#background_089{background-image:url(whole089.png)}
+#background_090{background-image:url(whole090.png)}
+#background_091{background-image:url(whole091.png)}
+#background_092{background-image:url(whole092.png)}
+#background_093{background-image:url(whole093.png)}
+#background_094{background-image:url(whole094.png)}
+#background_095{background-image:url(whole095.png)}
+#background_096{background-image:url(whole096.png)}
+#background_097{background-image:url(whole097.png)}
+#background_098{background-image:url(whole098.png)}
+#background_099{background-image:url(whole099.png)}
+#background_100{background-image:url(whole100.png)}
+#background_101{background-image:url(whole101.png)}
+#background_102{background-image:url(whole102.png)}
+#background_103{background-image:url(whole103.png)}
+#background_104{background-image:url(whole104.png)}
+#background_105{background-image:url(whole105.png)}
+#background_106{background-image:url(whole106.png)}
+#background_107{background-image:url(whole107.png)}
+#background_108{background-image:url(whole108.png)}
+#background_109{background-image:url(whole109.png)}
+#background_110{background-image:url(whole110.png)}
+#background_111{background-image:url(whole111.png)}
+#background_112{background-image:url(whole112.png)}
+#background_113{background-image:url(whole113.png)}
+#background_114{background-image:url(whole114.png)}
+#background_115{background-image:url(whole115.png)}
+#background_116{background-image:url(whole116.png)}
+#background_117{background-image:url(whole117.png)}
+#background_118{background-image:url(whole118.png)}
+#background_119{background-image:url(whole119.png)}
+#background_120{background-image:url(whole120.png)}
+#background_121{background-image:url(whole121.png)}
+#background_122{background-image:url(whole122.png)}
+#background_123{background-image:url(whole123.png)}
+#background_124{background-image:url(whole124.png)}
+#background_125{background-image:url(whole125.png)}
+#background_126{background-image:url(whole126.png)}
+#background_127{background-image:url(whole127.png)}
+#background_128{background-image:url(whole128.png)}
+#background_129{background-image:url(whole129.png)}
+#background_130{background-image:url(whole130.png)}
+#background_131{background-image:url(whole131.png)}
+#background_132{background-image:url(whole132.png)}
+#background_133{background-image:url(whole133.png)}
+#background_134{background-image:url(whole134.png)}
+#background_135{background-image:url(whole135.png)}
+#background_136{background-image:url(whole136.png)}
+#background_137{background-image:url(whole137.png)}
+#background_138{background-image:url(whole138.png)}
+#background_139{background-image:url(whole139.png)}
+#background_140{background-image:url(whole140.png)}
+#background_141{background-image:url(whole141.png)}
+#background_142{background-image:url(whole142.png)}
+#background_143{background-image:url(whole143.png)}
+#background_144{background-image:url(whole144.png)}
+#background_145{background-image:url(whole145.png)}
+#background_146{background-image:url(whole146.png)}
+#background_147{background-image:url(whole147.png)}
+#background_148{background-image:url(whole148.png)}
+#background_149{background-image:url(whole149.png)}
+#background_150{background-image:url(whole150.png)}
+#background_151{background-image:url(whole151.png)}
+#background_152{background-image:url(whole152.png)}
+#background_153{background-image:url(whole153.png)}
+#background_154{background-image:url(whole154.png)}
+#background_155{background-image:url(whole155.png)}
+#background_156{background-image:url(whole156.png)}
+#background_157{background-image:url(whole157.png)}
+#background_158{background-image:url(whole158.png)}
+#background_159{background-image:url(whole159.png)}
+#background_160{background-image:url(whole160.png)}
+#background_161{background-image:url(whole161.png)}
+#background_162{background-image:url(whole162.png)}
+#background_163{background-image:url(whole163.png)}
+#background_164{background-image:url(whole164.png)}
+#background_165{background-image:url(whole165.png)}
+#background_166{background-image:url(whole166.png)}
+#background_167{background-image:url(whole167.png)}
+#background_168{background-image:url(whole168.png)}
+#background_169{background-image:url(whole169.png)}
+#background_170{background-image:url(whole170.png)}
+#background_171{background-image:url(whole171.png)}
+#background_172{background-image:url(whole172.png)}
+#background_173{background-image:url(whole173.png)}
+#background_174{background-image:url(whole174.png)}
+#background_175{background-image:url(whole175.png)}
+#background_176{background-image:url(whole176.png)}
+#background_177{background-image:url(whole177.png)}
+#background_178{background-image:url(whole178.png)}
+#background_179{background-image:url(whole179.png)}
+#background_180{background-image:url(whole180.png)}
+#background_181{background-image:url(whole181.png)}
+#background_182{background-image:url(whole182.png)}
+#background_183{background-image:url(whole183.png)}
+#background_184{background-image:url(whole184.png)}
+#background_185{background-image:url(whole185.png)}
+#background_186{background-image:url(whole186.png)}
+#background_187{background-image:url(whole187.png)}
+#background_188{background-image:url(whole188.png)}
+#background_189{background-image:url(whole189.png)}
+#background_190{background-image:url(whole190.png)}
+#background_191{background-image:url(whole191.png)}
+#background_192{background-image:url(whole192.png)}
+#background_193{background-image:url(whole193.png)}
+#background_194{background-image:url(whole194.png)}
+#background_195{background-image:url(whole195.png)}
+#background_196{background-image:url(whole196.png)}
+#background_197{background-image:url(whole197.png)}
+#background_198{background-image:url(whole198.png)}
+#background_199{background-image:url(whole199.png)}
+#background_200{background-image:url(whole200.png)}
+#background_201{background-image:url(whole201.png)}
+#background_202{background-image:url(whole202.png)}
+#background_203{background-image:url(whole203.png)}
+#background_204{background-image:url(whole204.png)}
+#background_205{background-image:url(whole205.png)}
+#background_206{background-image:url(whole206.png)}
+#background_207{background-image:url(whole207.png)}
+#background_208{background-image:url(whole208.png)}
+#background_209{background-image:url(whole209.png)}
+#background_210{background-image:url(whole210.png)}
+#background_211{background-image:url(whole211.png)}
+#background_212{background-image:url(whole212.png)}
+#background_213{background-image:url(whole213.png)}
+#background_214{background-image:url(whole214.png)}
+#background_215{background-image:url(whole215.png)}
+#background_216{background-image:url(whole216.png)}
+#background_217{background-image:url(whole217.png)}
+#background_218{background-image:url(whole218.png)}
+#background_219{background-image:url(whole219.png)}
+#background_220{background-image:url(whole220.png)}
+#background_221{background-image:url(whole221.png)}
+#background_222{background-image:url(whole222.png)}
+#background_223{background-image:url(whole223.png)}
+#background_224{background-image:url(whole224.png)}
+#background_225{background-image:url(whole225.png)}
+#background_226{background-image:url(whole226.png)}
+#background_227{background-image:url(whole227.png)}
+#background_228{background-image:url(whole228.png)}
+#background_229{background-image:url(whole229.png)}
+#background_230{background-image:url(whole230.png)}
+#background_231{background-image:url(whole231.png)}
+#background_232{background-image:url(whole232.png)}
+#background_233{background-image:url(whole233.png)}
+#background_234{background-image:url(whole234.png)}
+#background_235{background-image:url(whole235.png)}
+#background_236{background-image:url(whole236.png)}
+#background_237{background-image:url(whole237.png)}
+#background_238{background-image:url(whole238.png)}
+#background_239{background-image:url(whole239.png)}
+#background_240{background-image:url(whole240.png)}
+#background_241{background-image:url(whole241.png)}
+#background_242{background-image:url(whole242.png)}
+#background_243{background-image:url(whole243.png)}
+#background_244{background-image:url(whole244.png)}
+#background_245{background-image:url(whole245.png)}
+#background_246{background-image:url(whole246.png)}
+#background_247{background-image:url(whole247.png)}
+#background_248{background-image:url(whole248.png)}
+#background_249{background-image:url(whole249.png)}
+#background_250{background-image:url(whole250.png)}
+#background_251{background-image:url(whole251.png)}
+#background_252{background-image:url(whole252.png)}
+#background_253{background-image:url(whole253.png)}
+#background_254{background-image:url(whole254.png)}
+#background_255{background-image:url(whole255.png)}
+#background_256{background-image:url(whole256.png)}
+#background_257{background-image:url(whole257.png)}
+#background_258{background-image:url(whole258.png)}
+#background_259{background-image:url(whole259.png)}
+#background_260{background-image:url(whole260.png)}
+#background_261{background-image:url(whole261.png)}
+#background_262{background-image:url(whole262.png)}
+#background_263{background-image:url(whole263.png)}
+#background_264{background-image:url(whole264.png)}
+#background_265{background-image:url(whole265.png)}
+#background_266{background-image:url(whole266.png)}
+#background_267{background-image:url(whole267.png)}
+#background_268{background-image:url(whole268.png)}
+#background_269{background-image:url(whole269.png)}
+#background_270{background-image:url(whole270.png)}
+#background_271{background-image:url(whole271.png)}
+#background_272{background-image:url(whole272.png)}
+#background_273{background-image:url(whole273.png)}
+#background_274{background-image:url(whole274.png)}
+#background_275{background-image:url(whole275.png)}
+#background_276{background-image:url(whole276.png)}
+#background_277{background-image:url(whole277.png)}
+#background_278{background-image:url(whole278.png)}
+#background_279{background-image:url(whole279.png)}
+#background_280{background-image:url(whole280.png)}
+#background_281{background-image:url(whole281.png)}
+#background_282{background-image:url(whole282.png)}
+#background_283{background-image:url(whole283.png)}
+#background_284{background-image:url(whole284.png)}
+#background_285{background-image:url(whole285.png)}
+#background_286{background-image:url(whole286.png)}
+#background_287{background-image:url(whole287.png)}
+#background_288{background-image:url(whole288.png)}
+#background_289{background-image:url(whole289.png)}
+#background_290{background-image:url(whole290.png)}
+#background_291{background-image:url(whole291.png)}
+#background_292{background-image:url(whole292.png)}
+#background_293{background-image:url(whole293.png)}
+#background_294{background-image:url(whole294.png)}
+#background_295{background-image:url(whole295.png)}
+#background_296{background-image:url(whole296.png)}
+#background_297{background-image:url(whole297.png)}
+#background_298{background-image:url(whole298.png)}
+#background_299{background-image:url(whole299.png)}
+#background_300{background-image:url(whole300.png)}
+#background_301{background-image:url(whole301.png)}
+#background_302{background-image:url(whole302.png)}
+#background_303{background-image:url(whole303.png)}
+#background_304{background-image:url(whole304.png)}
+#background_305{background-image:url(whole305.png)}
+#background_306{background-image:url(whole306.png)}
+#background_307{background-image:url(whole307.png)}
+#background_308{background-image:url(whole308.png)}
+#background_309{background-image:url(whole309.png)}
+#background_310{background-image:url(whole310.png)}
+#background_311{background-image:url(whole311.png)}
+#background_312{background-image:url(whole312.png)}
+#background_313{background-image:url(whole313.png)}
+#background_314{background-image:url(whole314.png)}
+#background_315{background-image:url(whole315.png)}
+#background_316{background-image:url(whole316.png)}
+#background_317{background-image:url(whole317.png)}
+#background_318{background-image:url(whole318.png)}
+#background_319{background-image:url(whole319.png)}
+#background_320{background-image:url(whole320.png)}
+#background_321{background-image:url(whole321.png)}
+#background_322{background-image:url(whole322.png)}
+#background_323{background-image:url(whole323.png)}
+#background_324{background-image:url(whole324.png)}
+#background_325{background-image:url(whole325.png)}
+#background_326{background-image:url(whole326.png)}
+#background_327{background-image:url(whole327.png)}
+#background_328{background-image:url(whole328.png)}
+#background_329{background-image:url(whole329.png)}
+#background_330{background-image:url(whole330.png)}
+#background_331{background-image:url(whole331.png)}
+#background_332{background-image:url(whole332.png)}
+#background_333{background-image:url(whole333.png)}
+#background_334{background-image:url(whole334.png)}
+#background_335{background-image:url(whole335.png)}
+#background_336{background-image:url(whole335.png)}
+  </style>
+</head>
+<body>
+  <div id="background_000" class="background"></div><div id="background_001" class="background"></div><div id="background_002" class="background"></div><div id="background_003" class="background"></div><div id="background_004" class="background"></div><div id="background_005" class="background"></div><div id="background_006" class="background"></div><div id="background_007" class="background"></div><div id="background_008" class="background"></div><div id="background_009" class="background"></div><div id="background_010" class="background"></div><div id="background_011" class="background"></div><div id="background_012" class="background"></div><div id="background_013" class="background"></div><div id="background_014" class="background"></div><div id="background_015" class="background"></div><div id="background_016" class="background"></div><div id="background_017" class="background"></div><div id="background_018" class="background"></div><div id="background_019" class="background"></div><div id="background_020" class="background"></div><div id="background_021" class="background"></div><div id="background_022" class="background"></div><div id="background_023" class="background"></div><div id="background_024" class="background"></div><div id="background_025" class="background"></div><div id="background_026" class="background"></div><div id="background_027" class="background"></div><div id="background_028" class="background"></div><div id="background_029" class="background"></div><div id="background_030" class="background"></div><div id="background_031" class="background"></div><div id="background_032" class="background"></div><div id="background_033" class="background"></div><div id="background_034" class="background"></div><div id="background_035" class="background"></div><div id="background_036" class="background"></div><div id="background_037" class="background"></div><div id="background_038" class="background"></div><div id="background_039" class="background"></div><div id="background_040" class="background"></div><div id="background_041" class="background"></div><div id="background_042" class="background"></div><div id="background_043" class="background"></div><div id="background_044" class="background"></div><div id="background_045" class="background"></div><div id="background_046" class="background"></div><div id="background_047" class="background"></div><div id="background_048" class="background"></div><div id="background_049" class="background"></div><div id="background_050" class="background"></div><div id="background_051" class="background"></div><div id="background_052" class="background"></div><div id="background_053" class="background"></div><div id="background_054" class="background"></div><div id="background_055" class="background"></div><div id="background_056" class="background"></div><div id="background_057" class="background"></div><div id="background_058" class="background"></div><div id="background_059" class="background"></div><div id="background_060" class="background"></div><div id="background_061" class="background"></div><div id="background_062" class="background"></div><div id="background_063" class="background"></div><div id="background_064" class="background"></div><div id="background_065" class="background"></div><div id="background_066" class="background"></div><div id="background_067" class="background"></div><div id="background_068" class="background"></div><div id="background_069" class="background"></div><div id="background_070" class="background"></div><div id="background_071" class="background"></div><div id="background_072" class="background"></div><div id="background_073" class="background"></div><div id="background_074" class="background"></div><div id="background_075" class="background"></div><div id="background_076" class="background"></div><div id="background_077" class="background"></div><div id="background_078" class="background"></div><div id="background_079" class="background"></div><div id="background_080" class="background"></div><div id="background_081" class="background"></div><div id="background_082" class="background"></div><div id="background_083" class="background"></div><div id="background_084" class="background"></div><div id="background_085" class="background"></div><div id="background_086" class="background"></div><div id="background_087" class="background"></div><div id="background_088" class="background"></div><div id="background_089" class="background"></div><div id="background_090" class="background"></div><div id="background_091" class="background"></div><div id="background_092" class="background"></div><div id="background_093" class="background"></div><div id="background_094" class="background"></div><div id="background_095" class="background"></div><div id="background_096" class="background"></div><div id="background_097" class="background"></div><div id="background_098" class="background"></div><div id="background_099" class="background"></div><div id="background_100" class="background"></div><div id="background_101" class="background"></div><div id="background_102" class="background"></div><div id="background_103" class="background"></div><div id="background_104" class="background"></div><div id="background_105" class="background"></div><div id="background_106" class="background"></div><div id="background_107" class="background"></div><div id="background_108" class="background"></div><div id="background_109" class="background"></div><div id="background_110" class="background"></div><div id="background_111" class="background"></div><div id="background_112" class="background"></div><div id="background_113" class="background"></div><div id="background_114" class="background"></div><div id="background_115" class="background"></div><div id="background_116" class="background"></div><div id="background_117" class="background"></div><div id="background_118" class="background"></div><div id="background_119" class="background"></div><div id="background_120" class="background"></div><div id="background_121" class="background"></div><div id="background_122" class="background"></div><div id="background_123" class="background"></div><div id="background_124" class="background"></div><div id="background_125" class="background"></div><div id="background_126" class="background"></div><div id="background_127" class="background"></div><div id="background_128" class="background"></div><div id="background_129" class="background"></div><div id="background_130" class="background"></div><div id="background_131" class="background"></div><div id="background_132" class="background"></div><div id="background_133" class="background"></div><div id="background_134" class="background"></div><div id="background_135" class="background"></div><div id="background_136" class="background"></div><div id="background_137" class="background"></div><div id="background_138" class="background"></div><div id="background_139" class="background"></div><div id="background_140" class="background"></div><div id="background_141" class="background"></div><div id="background_142" class="background"></div><div id="background_143" class="background"></div><div id="background_144" class="background"></div><div id="background_145" class="background"></div><div id="background_146" class="background"></div><div id="background_147" class="background"></div><div id="background_148" class="background"></div><div id="background_149" class="background"></div><div id="background_150" class="background"></div><div id="background_151" class="background"></div><div id="background_152" class="background"></div><div id="background_153" class="background"></div><div id="background_154" class="background"></div><div id="background_155" class="background"></div><div id="background_156" class="background"></div><div id="background_157" class="background"></div><div id="background_158" class="background"></div><div id="background_159" class="background"></div><div id="background_160" class="background"></div><div id="background_161" class="background"></div><div id="background_162" class="background"></div><div id="background_163" class="background"></div><div id="background_164" class="background"></div><div id="background_165" class="background"></div><div id="background_166" class="background"></div><div id="background_167" class="background"></div><div id="background_168" class="background"></div><div id="background_169" class="background"></div><div id="background_170" class="background"></div><div id="background_171" class="background"></div><div id="background_172" class="background"></div><div id="background_173" class="background"></div><div id="background_174" class="background"></div><div id="background_175" class="background"></div><div id="background_176" class="background"></div><div id="background_177" class="background"></div><div id="background_178" class="background"></div><div id="background_179" class="background"></div><div id="background_180" class="background"></div><div id="background_181" class="background"></div><div id="background_182" class="background"></div><div id="background_183" class="background"></div><div id="background_184" class="background"></div><div id="background_185" class="background"></div><div id="background_186" class="background"></div><div id="background_187" class="background"></div><div id="background_188" class="background"></div><div id="background_189" class="background"></div><div id="background_190" class="background"></div><div id="background_191" class="background"></div><div id="background_192" class="background"></div><div id="background_193" class="background"></div><div id="background_194" class="background"></div><div id="background_195" class="background"></div><div id="background_196" class="background"></div><div id="background_197" class="background"></div><div id="background_198" class="background"></div><div id="background_199" class="background"></div><div id="background_200" class="background"></div><div id="background_201" class="background"></div><div id="background_202" class="background"></div><div id="background_203" class="background"></div><div id="background_204" class="background"></div><div id="background_205" class="background"></div><div id="background_206" class="background"></div><div id="background_207" class="background"></div><div id="background_208" class="background"></div><div id="background_209" class="background"></div><div id="background_210" class="background"></div><div id="background_211" class="background"></div><div id="background_212" class="background"></div><div id="background_213" class="background"></div><div id="background_214" class="background"></div><div id="background_215" class="background"></div><div id="background_216" class="background"></div><div id="background_217" class="background"></div><div id="background_218" class="background"></div><div id="background_219" class="background"></div><div id="background_220" class="background"></div><div id="background_221" class="background"></div><div id="background_222" class="background"></div><div id="background_223" class="background"></div><div id="background_224" class="background"></div><div id="background_225" class="background"></div><div id="background_226" class="background"></div><div id="background_227" class="background"></div><div id="background_228" class="background"></div><div id="background_229" class="background"></div><div id="background_230" class="background"></div><div id="background_231" class="background"></div><div id="background_232" class="background"></div><div id="background_233" class="background"></div><div id="background_234" class="background"></div><div id="background_235" class="background"></div><div id="background_236" class="background"></div><div id="background_237" class="background"></div><div id="background_238" class="background"></div><div id="background_239" class="background"></div><div id="background_240" class="background"></div><div id="background_241" class="background"></div><div id="background_242" class="background"></div><div id="background_243" class="background"></div><div id="background_244" class="background"></div><div id="background_245" class="background"></div><div id="background_246" class="background"></div><div id="background_247" class="background"></div><div id="background_248" class="background"></div><div id="background_249" class="background"></div><div id="background_250" class="background"></div><div id="background_251" class="background"></div><div id="background_252" class="background"></div><div id="background_253" class="background"></div><div id="background_254" class="background"></div><div id="background_255" class="background"></div><div id="background_256" class="background"></div><div id="background_257" class="background"></div><div id="background_258" class="background"></div><div id="background_259" class="background"></div><div id="background_260" class="background"></div><div id="background_261" class="background"></div><div id="background_262" class="background"></div><div id="background_263" class="background"></div><div id="background_264" class="background"></div><div id="background_265" class="background"></div><div id="background_266" class="background"></div><div id="background_267" class="background"></div><div id="background_268" class="background"></div><div id="background_269" class="background"></div><div id="background_270" class="background"></div><div id="background_271" class="background"></div><div id="background_272" class="background"></div><div id="background_273" class="background"></div><div id="background_274" class="background"></div><div id="background_275" class="background"></div><div id="background_276" class="background"></div><div id="background_277" class="background"></div><div id="background_278" class="background"></div><div id="background_279" class="background"></div><div id="background_280" class="background"></div><div id="background_281" class="background"></div><div id="background_282" class="background"></div><div id="background_283" class="background"></div><div id="background_284" class="background"></div><div id="background_285" class="background"></div><div id="background_286" class="background"></div><div id="background_287" class="background"></div><div id="background_288" class="background"></div><div id="background_289" class="background"></div><div id="background_290" class="background"></div><div id="background_291" class="background"></div><div id="background_292" class="background"></div><div id="background_293" class="background"></div><div id="background_294" class="background"></div><div id="background_295" class="background"></div><div id="background_296" class="background"></div><div id="background_297" class="background"></div><div id="background_298" class="background"></div><div id="background_299" class="background"></div><div id="background_300" class="background"></div><div id="background_301" class="background"></div><div id="background_302" class="background"></div><div id="background_303" class="background"></div><div id="background_304" class="background"></div><div id="background_305" class="background"></div><div id="background_306" class="background"></div><div id="background_307" class="background"></div><div id="background_308" class="background"></div><div id="background_309" class="background"></div><div id="background_310" class="background"></div><div id="background_311" class="background"></div><div id="background_312" class="background"></div><div id="background_313" class="background"></div><div id="background_314" class="background"></div><div id="background_315" class="background"></div><div id="background_316" class="background"></div><div id="background_317" class="background"></div><div id="background_318" class="background"></div><div id="background_319" class="background"></div><div id="background_320" class="background"></div><div id="background_321" class="background"></div><div id="background_322" class="background"></div><div id="background_323" class="background"></div><div id="background_324" class="background"></div><div id="background_325" class="background"></div><div id="background_326" class="background"></div><div id="background_327" class="background"></div><div id="background_328" class="background"></div><div id="background_329" class="background"></div><div id="background_330" class="background"></div><div id="background_331" class="background"></div><div id="background_332" class="background"></div><div id="background_333" class="background"></div><div id="background_334" class="background"></div><div id="background_335" class="background"></div>
+
+<div class="ballwrap">
+<!-- 5 balls -->
+<div class="ball" id="ball0"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball1"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball2"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball3"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="ball" id="ball4"><div><div class="line1">Swi...</div><div class="line2"></div></div><img src="tail.png"></div>
+<div class="line-link" id="line0"></div>
+<div class="line-link" id="line1"></div>
+<div class="line-link" id="line2"></div>
+</div>
+
+<script>
+  const positions = [
+    { top: 167,  left: 56 },
+    { top: 150,  left: 56 },
+    { top: 145,  left: 83 },
+    { top: 127,  left: 63 },
+    { top: 105,  left: 63 },
+    { top: -48,  left: 183 },
+  ];
+  const phrases = ["Swipe to Forget Again",
+"Swipe to Mute Myself",
+"Swipe to Wish Quietly",
+"Swipe to Remember Wrong",
+"Swipe to What If Not",
+"Swipe to Start Over Softly",
+"Swipe to Empty Everything",
+  ];
+var gap = 7
+var counter = 0
+function updateLineFromPositions(from, to, line) {
+  const x1 = from.left;
+  const y1 = from.top;
+  const x2 = to.left;
+  const y2 = to.top;
+
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const length = Math.sqrt(dx * dx + dy * dy);
+  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+  line.style.left = x1 + 'vw';
+  line.style.top = y1 + 'vw';
+  line.style.height = length + 'vw';
+  line.style.transform = `rotate(${angle-90}deg)`;
+}
+
+  const shortText = "Swi...";
+  const transitionText = "Swipe to...";
+  const totalSteps = positions.length;
+  const ballCount = 5;
+  const balls = [];
+  const steps = [];
+  const activePhrases = [];
+const lines = [
+  document.getElementById('line0'),
+  document.getElementById('line1'),
+  document.getElementById('line2')
+];
+
+  let animating = false;
+
+  function easeOutQuad(t) {
+    return t * (2 - t);
+  }
+
+  function animateTo(ball, from, to, stepIndex, callback, ballIndex) {
+    let frame = 0;
+    const line1 = ball.querySelector('.line1');
+    const line2 = ball.querySelector('.line2');
+
+    const isSwiToSwipeStep = from.top === 145 && to.top === 127;
+    const isPhraseRevealStep = from.top === 127 && to.top === 105;
+
+    if (isPhraseRevealStep) {
+      activePhrases[ballIndex] = phrases[Math.floor(counter%phrases.length)];
+    }
+
+function zeroPad(number, width) {
+    return String(number).padStart(width, "0");
+}
+function updateText(progress) {
+  counter++
+  if (isSwiToSwipeStep) {
+    if(progress>0){
+        const count = Math.floor(progress * transitionText.length);
+        line1.textContent = transitionText.slice(0, count);
+        line2.textContent = "";}
+  } else if (isPhraseRevealStep) {
+    const full = activePhrases[ballIndex];
+    const rest = full.slice("Swipe to".length).trim();  // ✅ FINAL FIX: remove "swipe to" only (no dots!)
+    const count = Math.floor(progress * rest.length);
+    line1.textContent = "Swipe to";
+    line2.textContent = rest.slice(0, count);
+  }
+}
+function stepAnim() {
+  // Assign transition class like 'from-167-to-150'
+  if(frame > gap){
+  const fromClass = `from-${from.top}-to-${to.top}`;
+  
+  // Remove all old from-* classes first
+  ball.classList.forEach(cls => {
+    if (cls.startsWith('from-')) ball.classList.remove(cls);
+  });
+ball.classList.add(fromClass);
+
+
+}
+
+// Add the current from-to class
+  frame++;
+  const t = frame < gap ? 0 : easeOutQuad((frame - gap) / 20);
+
+  const currentTop = from.top + (to.top - from.top) * t;
+  const currentLeft = from.left + (to.left - from.left) * t;
+
+  ball.style.top = currentTop + 'vw';
+  ball.style.left = currentLeft + 'vw';
+
+
+  $('.background').hide()
+  48
+  $('#background_'+zeroPad(Math.min(frame,20),3)).show()
+
+if (ballIndex < 3) {
+  let innerIndex = ballIndex;
+
+  const fromPos = {
+    top: positions[ballIndex].top + (positions[ballIndex + 1].top - positions[ballIndex].top) * t,
+    left: positions[ballIndex].left + (positions[ballIndex + 1].left - positions[ballIndex].left) * t
+  };
+
+  const nextPos = {
+    top: positions[ballIndex + 1].top + (positions[ballIndex + 2].top - positions[ballIndex + 1].top) * t,
+    left: positions[ballIndex + 1].left + (positions[ballIndex + 2].left - positions[ballIndex + 1].left) * t
+  };
+
+  updateLineFromPositions(fromPos, nextPos, lines[innerIndex]);
+}
+
+
+  if (frame > gap) {
+  updateText((frame-gap*2) / 20);
+}
+
+  if (frame < 20+gap*2) {
+
+    setTimeout(stepAnim, 1000/30);
+  } else {
+    if (callback) callback();
+  }
+}
+
+
+    stepAnim();
+  }
+
+  // Initialize
+  for (let i = 0; i < ballCount; i++) {
+    const ball = document.getElementById('ball' + i);
+    balls.push(ball);
+    steps.push(i);
+    activePhrases.push(null);
+
+    const pos = positions[i];
+    ball.style.top = pos.top + 'vw';
+    ball.style.left = pos.left + 'vw';
+
+    const line1 = ball.querySelector('.line1');
+    const line2 = ball.querySelector('.line2');
+    line1.textContent = shortText;
+    line2.textContent = '';
+  }
+
+  document.body.addEventListener('touchend', () => {
+    if (animating) return;
+    animating = true;
+
+    let completed = 0;
+
+    for (let i = 0; i < ballCount; i++) {
+      const current = steps[i];
+      const next = (current + 1) % totalSteps;
+      const from = positions[current];
+      const to = positions[next];
+      const ball = balls[i];
+
+      animateTo(ball, from, to, current, () => {
+        steps[i] = next;
+
+        if (next === totalSteps - 1) {
+          setTimeout(() => {
+            const resetPos = positions[0];
+            ball.style.top = resetPos.top + 'vw';
+            ball.style.left = resetPos.left + 'vw';
+            steps[i] = 0;
+
+            const line1 = ball.querySelector('.line1');
+            const line2 = ball.querySelector('.line2');
+            line1.textContent = shortText;
+            line2.textContent = '';
+            activePhrases[i] = null;
+          }, 50);
+        }
+
+        completed++;
+        if (completed === ballCount) animating = false;
+      }, i);
+    }
+  });
+//   function drawStaticLine(from, to, element) {
+//   const dx = to.left - from.left;
+//   const dy = to.top - from.top;
+//   const length = Math.sqrt(dx * dx + dy * dy);
+//   const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+//   element.style.left = from.left + 'vw';
+//   element.style.top = from.top + 'vw';
+//   element.style.height = length + 'vw';
+//   element.style.transform = `rotate(${angle - 90}deg)`; // -90 to go from vertical
+// }
+
+// const staticPositions = [
+//   { top: 150, left: 56 }, // A
+//   { top: 145, left: 83 }, // B
+//   { top: 125, left: 63 }, // C
+//   { top: 105, left: 63 }, // D
+// ];
+
+// drawStaticLine(staticPositions[0], staticPositions[1], document.getElementById('line0'));
+// drawStaticLine(staticPositions[1], staticPositions[2], document.getElementById('line1'));
+// drawStaticLine(staticPositions[2], staticPositions[3], document.getElementById('line2'));
+
+</script>
+
+</body>
+</html>
