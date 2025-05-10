@@ -116,7 +116,7 @@
     deltaX = moveX - startX;
 
     if (deltaX < 0) {
-      const offset = -current * pageWidth + deltaX * 0.2;
+      const offset = -current * pageWidth + deltaX * 2;
       container.css('transform', `translateX(${offset}px)`);
     }
   });
