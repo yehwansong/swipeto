@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Infinite Swipe 36 Pages</title>
+  <style>
+    html, body {
+      margin: 0;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+    .container {
+      display: flex;
+      width: max-content;
+      height: 100vh;
+      transition: transform 0.4s ease;
+    }
+    .page {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5vw;
+      position: relative;
+    }
+    .grad {
+      width: 100vh;
+      height: 100vh;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .grad_1{
+      background: linear-gradient(to right, #ef4023, #64bc46);
+    }
+    .grad_2{
+      background: linear-gradient(to right, #ed2024, #6371b6);
+    }
+    /*ed2024*/
+    /*6371b6*/
+    .grad_ani {
+      transition: left 1s;
+      left: calc(100vw - 100vh);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="carousel">
+  <!-- 36 ORIGINAL PAGES -->
+  <script>
+    for (let i = 0; i < 36; i++) {
+      if(i%2 == 0){
+      document.write(`<div class="page p${i + 1}"><div class="grad grad_1"></div>${i + 1}</div>`);
+      }else{
+      document.write(`<div class="page p${i + 1}"><div class="grad grad_2"></div>${i + 1}</div>`);
+      }
+    }
+    // 36 DUPLICATE PAGES
+    for (let i = 0; i < 36; i++) {
+      if(i%2 == 0){
+      document.write(`<div class="page p${i + 1}"><div class="grad grad_1"></div>${i + 1}</div>`);
+      }else{
+      document.write(`<div class="page p${i + 1}"><div class="grad grad_2"></div>${i + 1}</div>`);
+      }
+    }
+  </script>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  const container = $('#carousel');
+  const totalReal = 36;
+  let current = totalReal; // Start at clone block
+  let startX = 0;
+  let deltaX = 0;
+  let dragging = false;
+  const pageWidth = window.innerWidth;
+
+  function jumpTo(index) {
+    container.css('transition', 'none');
+    container.css('transform', `translateX(-${index * pageWidth}px)`);
+    current = index;
+  }
+
+  function moveToNextPage() {
+    current++;
+    container.css('transition', 'transform 0.4s ease');
+    container.css('transform', `translateX(-${current * pageWidth}px)`);
+
+    const visibleIndex = current % totalReal;
+    $('.grad_ani').removeClass('grad_ani');
+    $('.page').eq(current).find('.grad').addClass('grad_ani');
+
+    if (current === totalReal * 2) {
+      setTimeout(() => {
+        jumpTo(totalReal);
+      }, 400);
+    }
+  }
+
+  $(document).on('touchstart', function(e) {
+    startX = e.originalEvent.touches[0].clientX;
+    deltaX = 0;
+    dragging = true;
+    container.css('transition', 'none');
+  });
+
+  $(document).on('touchmove', function(e) {
+    if (!dragging) return;
+    const moveX = e.originalEvent.touches[0].clientX;
+    deltaX = moveX - startX;
+
+    if (deltaX < 0) {
+      const offset = -current * pageWidth + deltaX * 0.2;
+      container.css('transform', `translateX(${offset}px)`);
+    }
+  });
+
+  $(document).on('touchend', function() {
+    dragging = false;
+    moveToNextPage();
+  });
+
+  // Start in the duplicated block to enable infinite looping
+  jumpTo(totalReal);
+</script>
+
+</body>
+</html>
